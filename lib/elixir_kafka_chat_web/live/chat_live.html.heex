@@ -1,0 +1,8 @@
+<h1>Chat - <%= @chat.title %></h1>
+
+<%!-- <.input name="search" value="" placeholder="Filter by name..." phx-keyup="search" /> --%>
+
+<.table id="messages" rows={@chat.messages}>
+  <:col :let={message} label="First name"><%= message.content %></:col>
+  <:col :let={message} label="Last name"><%= message.user_name %></:col>
+</.table>
