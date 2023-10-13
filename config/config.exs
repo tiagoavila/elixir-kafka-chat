@@ -72,7 +72,7 @@ config :kafka_ex,
   # errors when producing messages, it may be necessary to modify "advertised.host.name" in the
   # server.properties file.
   # In the case below you would set "advertised.host.name=localhost"
-  brokers: "localhost:9092",
+  brokers: "localhost:29092",
   #
   # OR:
   # brokers: "localhost:9092,localhost:9093,localhost:9094"
