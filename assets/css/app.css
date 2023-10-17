@@ -3,3 +3,10 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+.fr {
+    float: right    ;
+}
+
+.bt{
+    border-top: 1px solid #e2e8f0;
+}

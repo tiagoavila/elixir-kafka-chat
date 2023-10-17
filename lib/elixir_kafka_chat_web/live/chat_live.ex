@@ -12,7 +12,13 @@ defmodule ElixirKafkaChatWeb.ChatLive do
       ]
     }
 
-    socket = assign(socket, :chat, sample_chat)
+    message_changeset = %Chat.Message{
+      content: "Hello, world!",
+      user_name: "Tiago"
+    }
+    |> Chat.changeset(%{})
+
+    socket = assign(socket, :chat_view_model, %{chat: sample_chat, message: to_form(message_changeset)})
     {:ok, socket}
   end
 end

@@ -18,4 +18,10 @@ defmodule ElixirKafkaChat.Chat do
     |> cast(attrs, [:title, :messages])
     |> validate_required([:title])
   end
+
+  def changeset(%Chat.Message{} = chat_message, attrs) do
+    chat_message
+    |> cast(attrs, [:content, :user_name])
+    |> validate_required([:content, :user_name])
+  end
 end
