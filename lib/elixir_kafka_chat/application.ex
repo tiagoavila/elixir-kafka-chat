@@ -17,7 +17,8 @@ defmodule ElixirKafkaChat.Application do
       # Start Finch
       {Finch, name: ElixirKafkaChat.Finch},
       # Start the Endpoint (http/https)
-      ElixirKafkaChatWeb.Endpoint
+      ElixirKafkaChatWeb.Endpoint,
+      ElixirKafkaChat.KafkaConsumer,
       # Start a worker by calling: ElixirKafkaChat.Worker.start_link(arg)
       # {ElixirKafkaChat.Worker, arg}
     ]

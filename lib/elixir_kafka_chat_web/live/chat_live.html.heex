@@ -1,13 +1,12 @@
 <h1>Chat - <%= @chat_view_model.chat.title %></h1>
  
-<.table id="messages" rows={@chat_view_model.chat.messages} class="">
-  <:col :let={message} label="First name"><%= message.content %></:col>
-  
-  <:col :let={message} label="Last name"><%= message.user_name %></:col>
+<.table id="messages" rows={@chat_view_model.chat.messages}>
+  <:col :let={message} label="Message"><%= message.content %></:col>
+  <:col :let={message} label="User"><%= message.user_name %></:col>
 </.table>
 
 <div class="bt mt-10">
-  <.form :let={f} for={@chat_view_model.message} >
+  <.form :let={f} for={@chat_view_model.message} phx-submit="send_message">
     <.input field={f[:user_name]} /> 
     <.input field={f[:content]} type="textarea" />
     <.button class="fr mt-2">Send!</.button>
