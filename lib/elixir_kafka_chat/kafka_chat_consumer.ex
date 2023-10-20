@@ -1,4 +1,4 @@
-defmodule ElixirKafkaChat.KafkaConsumer do
+defmodule ElixirKafkaChat.KafkaChatConsumer do
   use KafkaEx.GenConsumer
 
   alias KafkaEx.Protocol.Fetch.Message
@@ -8,7 +8,7 @@ defmodule ElixirKafkaChat.KafkaConsumer do
   # note - messages are delivered in batches
   def handle_message_set(message_set, state) do
     for %Message{value: message} <- message_set do
-      Logger.debug(fn -> "message: " <> inspect(message) end)
+      Logger.debug(fn -> "message received from KAFKA: " <> inspect(message) end)
     end
     {:async_commit, state}
   end

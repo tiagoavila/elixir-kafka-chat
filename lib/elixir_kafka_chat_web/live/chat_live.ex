@@ -22,8 +22,7 @@ defmodule ElixirKafkaChatWeb.ChatLive do
     {:ok, socket}
   end
 
-  def handle_event("send_message", %{"message" => message} = data, socket) do
-    IO.inspect(data)
+  def handle_event("send_message", %{"message" => message}, socket) do
     message_json = Jason.encode!(message)
 
     KafkaEx.produce("chat", 0, message_json)
