@@ -1,12 +1,24 @@
-<h1>Chat - <%= @chat_view_model.chat.title %></h1>
+<h1 class="mt-10 flex items-center text-lg font-semibold leading-6">Chat</h1>
  
-<.table id="messages" rows={@chat_view_model.chat.messages}>
+<%!-- <.table id="chat_messages" rows={@chat.messages}>
   <:col :let={message} label="Message"><%= message.content %></:col>
   <:col :let={message} label="User"><%= message.user_name %></:col>
-</.table>
+</.table> --%>
+
+<table>
+  <tbody id="chat_messages" phx-update="stream">
+    <tr
+      :for={{dom_id, message} <- @streams.chat_messages}
+      id={dom_id}
+    >
+      <td><%= message.user_name %></td>
+      <td><%= message.content %></td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="bt mt-10">
-  <.form :let={f} for={@chat_view_model.message} phx-submit="send_message">
+  <.form :let={f} phx-submit="send_message">
     <.input field={f[:user_name]} /> 
     <.input field={f[:content]} type="textarea" />
     <.button class="fr mt-2">Send!</.button>

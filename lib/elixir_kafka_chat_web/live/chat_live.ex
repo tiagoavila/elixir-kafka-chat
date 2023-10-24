@@ -1,8 +1,12 @@
 defmodule ElixirKafkaChatWeb.ChatLive do
   use ElixirKafkaChatWeb, :live_view
   alias ElixirKafkaChat.Chat
+  alias Phoenix.PubSub
+  alias ElixirKafkaChat.Constants
 
   def mount(_params, _session, socket) do
+    if connected?(socket), do: PubSub.subscribe(ElixirKafkaChat.PubSub, Constants.pubsub_chat_topic)
+
     sample_chat = %Chat{
       title: "Sample Title",
       messages: [
@@ -12,14 +16,13 @@ defmodule ElixirKafkaChatWeb.ChatLive do
       ]
     }
 
-    message_changeset = %Chat.Message{
-      content: "Hello, world!",
-      user_name: "Tiago"
-    }
-    |> Chat.changeset(%{})
+    # message_changeset = %Chat.Message{
+    #   content: "Hello, world!",
+    #   user_name: "Tiago"
+    # }
+    # |> Chat.changeset(%{})
 
-    socket = assign(socket, :chat_view_model, %{chat: sample_chat, message: to_form(message_changeset)})
-    {:ok, socket}
+    {:ok, stream(socket, :chat_messages, sample_chat.messages)}
   end
 
   def handle_event("send_message", %{"message" => message}, socket) do
@@ -43,5 +46,10 @@ defmodule ElixirKafkaChatWeb.ChatLive do
     |> Chat.changeset(%{})
 
     {:noreply, assign(socket, :chat_view_model, %{chat: sample_chat, message: to_form(message_changeset)})}
+  end
+
+  def handle_info({:new_chat_message, message}, socket) do
+    IO.inspect(message, label: "message received from PubSub")
+    {:noreply, socket}
   end
 end
