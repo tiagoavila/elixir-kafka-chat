@@ -6,9 +6,11 @@ defmodule ElixirKafkaChat.Chat do
   embedded_schema do
     field :title, :string
 
+    @derive Jason.Encoder
     embeds_many :messages, Message do
-      field :content,   :string
+      field :content, :string
       field :user_name, :string
+      field :sent_datetime, :naive_datetime
     end
   end
 
@@ -22,6 +24,19 @@ defmodule ElixirKafkaChat.Chat do
   def changeset(%Chat.Message{} = chat_message, attrs) do
     chat_message
     |> cast(attrs, [:content, :user_name])
-    |> validate_required([:content, :user_name])
+    |> validate_required([:user_name])
+  end
+
+  defimpl Jason.Encoder, for: Chat.Message do
+    def encode(value, opts) do
+      Jason.Encode.map(
+        %{
+          content: Map.get(value, :content),
+          user_name: Map.get(value, :user_name),
+          sent_datetime: Map.get(value, :sent_datetime)
+        },
+        opts
+      )
+    end
   end
 end
