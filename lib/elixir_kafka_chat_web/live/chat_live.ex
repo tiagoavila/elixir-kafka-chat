@@ -5,6 +5,8 @@ defmodule ElixirKafkaChatWeb.ChatLive do
   alias Phoenix.PubSub
   alias ElixirKafkaChat.Constants
 
+  on_mount {ElixirKafkaChatWeb.UserAuth, :mount_current_user}
+
   def mount(_params, _session, socket) do
     if connected?(socket),
       do: PubSub.subscribe(ElixirKafkaChat.PubSub, Constants.pubsub_chat_topic)
