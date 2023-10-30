@@ -38,8 +38,10 @@ defmodule ElixirKafkaChat.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :username, :first_name, :password])
     |> validate_email(opts)
+    |> validate_username()
+    |> validate_first_name()
     |> validate_password(opts)
   end
 
@@ -49,6 +51,21 @@ defmodule ElixirKafkaChat.Accounts.User do
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
     |> maybe_validate_unique_email(opts)
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_required([:username])
+    |> validate_format(:username, ~r/[A-Za-z0-9_]/, message: "can only contain letters, numbers and underscores")
+    |> validate_length(:username, max: 20)
+    |> unsafe_validate_unique(:username, ElixirKafkaChat.Repo)
+    |> unique_constraint(:username)
+  end
+
+  defp validate_first_name(changeset) do
+    changeset
+    |> validate_required([:first_name])
+    |> validate_length(:first_name, max: 20)
   end
 
   defp validate_password(changeset, opts) do
