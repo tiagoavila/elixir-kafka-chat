@@ -20,7 +20,6 @@ defmodule ElixirKafkaChatWeb.Router do
   scope "/", ElixirKafkaChatWeb do
     pipe_through :browser
 
-    live "/chat", ChatLive
     get "/", PageController, :home
   end
 
@@ -67,6 +66,8 @@ defmodule ElixirKafkaChatWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    live "/chat", ChatLive
   end
 
   scope "/", ElixirKafkaChatWeb do

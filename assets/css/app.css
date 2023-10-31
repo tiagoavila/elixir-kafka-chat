@@ -10,3 +10,25 @@
 .bt{
     border-top: 1px solid #e2e8f0;
 }
+
+.message {
+    background-color: #e2e2e2;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    clear: both;
+}
+
+.message.sender {
+    background-color: #dcf8c6;
+    float: right;
+}
+
+.message.receiver {
+    background-color: #fff;
+    float: left;
+}
+
+.user-name {
+    font-weight: bold;
+}

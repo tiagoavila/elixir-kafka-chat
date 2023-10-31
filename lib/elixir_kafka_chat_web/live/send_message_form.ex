@@ -1,4 +1,6 @@
 defmodule ElixirKafkaChatWeb.SendMessageForm do
+  @moduledoc false
+
   use ElixirKafkaChatWeb, :live_component
   import ElixirKafkaChatWeb.CoreComponents
   alias ElixirKafkaChat.Chat
@@ -12,7 +14,7 @@ defmodule ElixirKafkaChatWeb.SendMessageForm do
   end
 
   def assign_changeset(socket) do
-    assign(socket, :changeset, Chat.changeset(%Chat.Message{}, %{}))
+    assign(socket, :changeset, Chat.changeset(%Chat.Message{}, %{"user_name" => socket.assigns.current_user.username}))
   end
 
   def render(assigns) do
@@ -25,7 +27,7 @@ defmodule ElixirKafkaChatWeb.SendMessageForm do
         phx-change="update"
         phx-target={@myself}
       >
-        <.input field={f[:user_name]} />
+        <.input field={f[:user_name]} type="hidden" />
         <.input field={f[:content]} type="textarea" />
         <.button class="fr mt-2">Send!</.button>
       </.form>

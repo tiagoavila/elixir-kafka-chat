@@ -114,7 +114,7 @@ config :kafka_ex,
   # - `:earliest` - Will move to the offset to the oldest available
   # - `:latest` - Will move the offset to the most recent.
   # - `:none` - The error will simply be raised
-  auto_offset_reset: :none,
+  auto_offset_reset: :earliest,
   # Interval in milliseconds to wait before reconnect to kafka
   sleep_for_reconnect: 400,
   # This is the flag that enables use of ssl
