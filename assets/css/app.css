@@ -11,6 +11,13 @@
     border-top: 1px solid #e2e8f0;
 }
 
+#chat_messages {
+    max-height: 500px;
+    display: block;
+    overflow-y: auto;
+    position: relative;
+}
+
 .message {
     background-color: #e2e2e2;
     padding: 10px;
@@ -25,7 +32,7 @@
 }
 
 .message.receiver {
-    background-color: #fff;
+    background-color: #999;
     float: left;
 }
 

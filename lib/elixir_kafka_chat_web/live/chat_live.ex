@@ -1,6 +1,8 @@
 defmodule ElixirKafkaChatWeb.ChatLive do
   use ElixirKafkaChatWeb, :live_view
 
+  import ElixirKafkaChatWeb.CustomComponents
+
   alias ElixirKafkaChat.Chat
   alias Phoenix.PubSub
   alias ElixirKafkaChat.Constants
